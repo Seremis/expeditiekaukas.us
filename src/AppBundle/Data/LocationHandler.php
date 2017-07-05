@@ -59,7 +59,8 @@ class LocationHandler {
 
         $locations = $queryBuilder
             ->field('personName')->equals(strtolower($personName))
-            ->sort('date', 'asc');
+            ->sort('date', 'asc')
+            ->getQuery()->execute();
 
         $routeJSON = array();
 
