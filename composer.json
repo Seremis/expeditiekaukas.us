@@ -71,6 +71,6 @@
         "branch-alias": null
     },
     "provide": {
-      "ext-mongo": "1.6.13"
+      "ext-mongo": "1.6.14"
     }
 }
