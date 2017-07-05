@@ -1,0 +1,19 @@
+<div class="header">
+    <div class="flags">
+        <div class="flag">
+            <a href="#"><span class='flagImage flag flag-{{ flag }}'></span></a>
+        </div>
+        <div class="vertical_line"></div>
+        <div class="flag">
+            <a href="/{{ otherLocale1 }}"><span class='flagImage flag flag-{{ otherLocale1Flag }}'></span></a>
+        </div>
+        <div class="flag">
+            <a href="/{{ otherLocale2 }}"><span class='flagImage flag flag-{{ otherLocale2Flag }}'></span></a>
+        </div>
+    </div>
+    <img class="headerImage" src="{{ asset('images/background.png') }}"/>
+    <div class="headerText">
+        <img class="headerLogo" src="{{ asset('images/logo.png') }}"/><br>
+        {{ name|upper }}
+    </div>
+</div>

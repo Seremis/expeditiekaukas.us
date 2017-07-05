@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ name }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/menu.css') }}">
+    <style>
+        {{ include('style/flags.css.twig') }}
+    </style>
+    <link rel="stylesheet" href="{{ asset('style/map.css') }}">
+{% endblock %}
+
+{% block body %}
+    {{ include('default/menu.html.twig') }}
+    <div id="mapWrapper">
+        <div id="map"></div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        {{ include('default/map.js.twig') }}
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_lbEkRB62MQPr4VgtpKaSI8nhqt4BvmU&callback=initMap&libraries=geometry&language={{ _locale }}"></script>
+{% endblock %}
