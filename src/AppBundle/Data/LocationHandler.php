@@ -32,7 +32,7 @@ class LocationHandler {
         foreach($locationsJSON as $json) {
             $location = new Location();
 
-            $location->setPersonName(strtolower($personName));
+            $location->setPersonName(ucwords($personName));
             $location->setLatitude($json['lat']);
             $location->setLongitude($json['lon']);
             $location->setAltitude($json['alt']);
@@ -58,18 +58,13 @@ class LocationHandler {
         $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
 
         $locations = $queryBuilder
-            ->field('personName')->equals(strtolower($personName))
+            ->field('personName')->equals(ucwords($personName))
             ->sort('date', 'asc')
             ->getQuery()->execute();
 
         $routeJSON = array();
 
         foreach($locations as $location) {
-            $date = $location->getDate();
-
-            $timestamp = $date->getTimestamp();
-            $timezone = $date->getTimezone();
-
             $routeJSON[] = array(
                 "lat" => $location->getLatitude(),
                 "lon" => $location->getLatitude()
