@@ -97,7 +97,7 @@ class LocationHandler {
             $personsJSON[] = $person;
         }
 
-        $personsJSON = sort($personsJSON);
+        sort($personsJSON);
 
         $json = array(
             'people' => $personsJSON
