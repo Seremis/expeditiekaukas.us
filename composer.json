@@ -69,5 +69,8 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": null
+    },
+    "provide": {
+      "ext-mongo": "1.6.13"
     }
 }
