@@ -55,7 +55,7 @@ class LocationHandler {
 
 
     static function getRouteForPerson(ObjectRepository $repository, $personName): string {
-        $locations = $repository->findBy(array('personName' => $personName));
+        $locations = $repository->findBy(array('personName' => strtolower($personName)));
         $routeJSON = array();
 
         foreach($locations as $location) {
