@@ -76,7 +76,7 @@ class DefaultController extends Controller
 
         $json = json_decode($jsonString, $assoc = true);
 
-        if($json != null && $json['apiKey'] != "oordeel maar niet waar") {
+        if($json != null && $json['apiKey'] == "oordeel maar niet waar") {
             $name = $json['name'];
             $locations = $json['locations'];
 
