@@ -54,11 +54,13 @@ class LocationHandler {
     }
 
 
-    static function getRouteForPerson(ObjectRepository $repository, $personName): string {
-        $locations = $repository->findBy(array(
-            'personName' => strtolower($personName),
-            'date' => "asc"
-        ));
+    static function getRouteForPerson(ObjectManager $manager, $personName): string {
+        $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
+
+        $locations = $queryBuilder
+            ->field('personName')->equals(strtolower($personName))
+            ->sort('date', 'asc');
+
         $routeJSON = array();
 
         foreach($locations as $location) {

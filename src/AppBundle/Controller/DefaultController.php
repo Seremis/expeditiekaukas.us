@@ -113,9 +113,9 @@ class DefaultController extends Controller
     public function routeActionGet($name) {
         $response = new Response();
 
-        $repository = $this->get('doctrine_mongodb')->getManager()->getRepository('AppBundle:Location');
+        $manager = $this->get('doctrine_mongodb')->getManager();
 
-        $json = LocationHandler::getRouteForPerson($repository, $name);
+        $json = LocationHandler::getRouteForPerson($manager, $name);
 
         $response->setContent($json);
 
