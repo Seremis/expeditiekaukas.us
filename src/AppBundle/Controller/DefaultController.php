@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Data\LocationHandler;
+use AppBundle\Document\Location;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -131,5 +132,31 @@ class DefaultController extends Controller
      */
     public function routeActionGetSlash() {
         return $this->routeActionGet();
+    }
+
+    /**
+     * @Route("/api/person", name="personGet")
+     * @Method("GET")
+     */
+    public function personActionGet() {
+        $response = new Response();
+
+        $manager = $this->get('doctrine_mongodb')->getManager();
+
+        $json = LocationHandler::getUniquePersons($manager);
+
+        $response->setContent($json);
+        $response->setStatusCode(200);
+
+        return $response;
+    }
+
+    /**
+     * Trailing slash personActionGet
+     * @Route("/api/person/", name="personGet")
+     * @Method("GET")
+     */
+    public function personActionGetSlash() {
+        return $this->personActionGet();
     }
 }

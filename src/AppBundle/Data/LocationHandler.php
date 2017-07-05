@@ -84,4 +84,24 @@ class LocationHandler {
         return json_encode($route);
     }
 
+    static function getUniquePersons(ObjectManager $manager): array {
+        $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
+
+        $persons = $queryBuilder
+            ->distinct('personName')
+            ->getQuery()->execute();
+
+        $personsJSON = array();
+
+        foreach($persons as $person) {
+            $personsJSON[] = $person;
+        }
+
+        $json = array(
+            'people' => $personsJSON
+        );
+
+        return json_encode($json);
+    }
+
 }
