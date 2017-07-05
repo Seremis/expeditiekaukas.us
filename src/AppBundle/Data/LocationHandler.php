@@ -40,7 +40,8 @@ class LocationHandler {
 
             $date = new \DateTime();
             $date->setTimestamp($json['time']);
-            $date->setTimezone($json['timezone']);
+            $timezone = new \DateTimeZone($json['timezone']);
+            $date->setTimezone($timezone);
 
             $location->setDate($date);
 
