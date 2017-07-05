@@ -19,6 +19,7 @@
 
 .header {
     position: relative;
+    margin-bottom: -4px;
 }
 
 .headerImage {
