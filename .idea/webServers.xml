@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d93f3e8d-7dfc-43d5-9f05-4d912ea59584" name="Expeditie Kaukasus" url="http://expeditiekaukas.us">
+        <fileTransfer host="expeditiekaukas.us" port="22" privateKey="C:\Users\Maurice\.ssh\id_rsa" rootFolder="/var/www/expeditiekaukas.us" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
