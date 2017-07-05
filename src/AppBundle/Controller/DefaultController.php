@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Data\LocationHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -79,7 +80,9 @@ class DefaultController extends Controller
             $locations = $json['locations'];
 
             if(!empty($locations)) {
+                $mongoManager = $this->get('doctrine_mongodb')->getManager();
 
+                LocationHandler::persistLocations($mongoManager, $name, $locations);
             }
 
             $response = new Response();
