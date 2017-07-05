@@ -257,4 +257,26 @@ class Place {
     {
         return $this->timeframes;
     }
+
+    /**
+     * Set date
+     *
+     * @param date $date
+     * @return $this
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return date $date
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
 }

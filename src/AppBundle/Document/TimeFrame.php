@@ -34,4 +34,48 @@ class TimeFrame {
     {
         return $this->id;
     }
+
+    /**
+     * Set localStartTime
+     *
+     * @param date $localStartTime
+     * @return $this
+     */
+    public function setLocalStartTime($localStartTime)
+    {
+        $this->localStartTime = $localStartTime;
+        return $this;
+    }
+
+    /**
+     * Get localStartTime
+     *
+     * @return date $localStartTime
+     */
+    public function getLocalStartTime()
+    {
+        return $this->localStartTime;
+    }
+
+    /**
+     * Set localEndTime
+     *
+     * @param date $localEndTime
+     * @return $this
+     */
+    public function setLocalEndTime($localEndTime)
+    {
+        $this->localEndTime = $localEndTime;
+        return $this;
+    }
+
+    /**
+     * Get localEndTime
+     *
+     * @return date $localEndTime
+     */
+    public function getLocalEndTime()
+    {
+        return $this->localEndTime;
+    }
 }
