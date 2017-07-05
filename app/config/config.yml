@@ -68,3 +68,12 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
+doctrine_mongodb:
+    connections:
+        default:
+            server: "%mongodb_server%"
+            options: {}
+    default_database: expeditiekaukasus
+    document_managers:
+        default:
+            auto_mapping: true
