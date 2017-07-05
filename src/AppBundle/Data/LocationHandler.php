@@ -70,7 +70,10 @@ class LocationHandler {
             );
         }
 
-        $route = array('route' => $routeJSON);
+        $route = array(
+            'personName' => $personName,
+            'route' => $routeJSON
+        );
 
         return json_encode($route);
     }
