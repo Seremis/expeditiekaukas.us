@@ -52,7 +52,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/api/location", name="locationPost")
-     * Method("POST")
+     * @Method("POST")
      *
      * An incoming request should look like:
      *  {
@@ -96,6 +96,14 @@ class DefaultController extends Controller
         $response->setStatusCode(400);
 
         return $response;
+    }
+
+    /**
+     * @Route("/api/location/", name="locationPost")
+     * @Method("POST")
+     */
+    public function locationActionPostSlash(Request $request) {
+        return $this->locationActionPost($request);
     }
 
     /**
