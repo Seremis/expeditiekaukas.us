@@ -35,7 +35,7 @@ class LocationHandler {
             $location->setLatitude($json['lat']);
             $location->setLongitude($json['lon']);
             $location->setAltitude($json['alt']);
-            $location->setAccuracy($json['accuracy']);
+            $location->setAccuracy($json['acc']);
             $location->setTimestamp($json['time']);
 
             $locationsDoc[] = $location;
