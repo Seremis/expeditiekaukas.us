@@ -2,6 +2,8 @@
 namespace AppBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\Id;
+
 
 /**
  * @MongoDB\Document
@@ -39,9 +41,9 @@ class Place {
     protected $altitude;
 
     /**
-     * @MongoDB\Field(type="timestamp")
+     * @MongoDB\Field(type="date")
      */
-    protected $timestamp;
+    protected $date;
 
     /**
      * @MongoDB\Field(type="int")
@@ -180,28 +182,6 @@ class Place {
     public function getAltitude()
     {
         return $this->altitude;
-    }
-
-    /**
-     * Set timestamp
-     *
-     * @param timestamp $timestamp
-     * @return $this
-     */
-    public function setTimestamp($timestamp)
-    {
-        $this->timestamp = $timestamp;
-        return $this;
-    }
-
-    /**
-     * Get timestamp
-     *
-     * @return timestamp $timestamp
-     */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
     }
 
     /**

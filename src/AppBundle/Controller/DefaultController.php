@@ -99,7 +99,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/api/location/", name="locationPost")
+     * @Route("/api/location/", name="locationPostSlash")
      * @Method("POST")
      */
     public function locationActionPostSlash(Request $request) {
@@ -108,9 +108,28 @@ class DefaultController extends Controller
 
     /**
      * @Route("/api/route/{name}", name="routeGet")
-     * @Method({"GET"})
+     * @Method("GET")
      */
-    public function routeActionGet() {
+    public function routeActionGet($name) {
+        $response = new Response();
 
+        $repository = $this->get('doctrine_mongodb')
+            ->getManager()
+            ->getRepository('AppBundle:Location');
+
+        $response->setContent();
+
+        $response->setStatusCode(200);
+
+        return $response;
+    }
+
+    /**
+     * Trailing slash routeActionGet
+     * @Route("/api/route/{name}/", name="routeGetSlash")
+     * @Method("GET")
+     */
+    public function routeActionGetSlash() {
+        return $this->routeActionGet();
     }
 }

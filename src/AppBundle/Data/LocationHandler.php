@@ -5,6 +5,7 @@ namespace AppBundle\Data;
 
 use AppBundle\Document\Location;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 class LocationHandler {
 
@@ -31,7 +32,7 @@ class LocationHandler {
         foreach($locationsJSON as $json) {
             $location = new Location();
 
-            $location->setPersonName($personName);
+            $location->setPersonName(strtolower($personName));
             $location->setLatitude($json['lat']);
             $location->setLongitude($json['lon']);
             $location->setAltitude($json['alt']);
@@ -44,6 +45,22 @@ class LocationHandler {
         $mongoManager->flush();
 
         return $locationsDoc;
+    }
+
+
+    static function getLocations(ObjectRepository $repository, $personName): array {
+        $locations = $repository->getByPersonName($personName);
+        $locationsJSON = array();
+
+        foreach($locations as $location) {
+            $locationsJSON[] = array(
+                "lat" => $location->getLatitude(),
+                "lon" => $location->getLatitude(),
+                "alt" => $location->getAltitude(),
+                "acc" => $location->getAccuracy(),
+                "time" => $location->getTimestamp()
+            );
+        }
     }
 
 }
