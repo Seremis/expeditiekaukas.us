@@ -84,7 +84,7 @@ class LocationHandler {
         return json_encode($route);
     }
 
-    static function getUniquePersons(ObjectManager $manager): array {
+    static function getUniquePersons(ObjectManager $manager): string {
         $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
 
         $persons = $queryBuilder
@@ -96,6 +96,8 @@ class LocationHandler {
         foreach($persons as $person) {
             $personsJSON[] = $person;
         }
+
+        $personsJSON = sort($personsJSON);
 
         $json = array(
             'people' => $personsJSON
