@@ -51,7 +51,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/api/location/", name="locationPost")
+     * @Route("/api/location", name="locationPost")
      * @Method({"POST"})
      *
      * An incoming request should look like:
