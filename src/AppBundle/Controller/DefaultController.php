@@ -117,7 +117,9 @@ class DefaultController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Location');
 
-        $response->setContent();
+        $json = LocationHandler::getRouteForPerson($repository, $name);
+
+        $response->setContent($json);
 
         $response->setStatusCode(200);
 

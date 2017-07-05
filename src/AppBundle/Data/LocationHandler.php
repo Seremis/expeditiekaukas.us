@@ -37,7 +37,12 @@ class LocationHandler {
             $location->setLongitude($json['lon']);
             $location->setAltitude($json['alt']);
             $location->setAccuracy($json['acc']);
-            $location->setTimestamp($json['time']);
+
+            $date = new \DateTime();
+            $date->setTimestamp($json['time']);
+            $date->setTimezone($json['timezone']);
+
+            $location->setDate($date);
 
             $locationsDoc[] = $location;
             $mongoManager->persist($location);
@@ -48,19 +53,23 @@ class LocationHandler {
     }
 
 
-    static function getLocations(ObjectRepository $repository, $personName): array {
+    static function getRouteForPerson(ObjectRepository $repository, $personName): array {
         $locations = $repository->getByPersonName($personName);
-        $locationsJSON = array();
+        $routeJSON = array();
 
         foreach($locations as $location) {
-            $locationsJSON[] = array(
+            $date = $location->getDate();
+
+            $timestamp = $date->getTimestamp();
+            $timezone = $date->getTimezone();
+
+            $routeJSON[] = array(
                 "lat" => $location->getLatitude(),
-                "lon" => $location->getLatitude(),
-                "alt" => $location->getAltitude(),
-                "acc" => $location->getAccuracy(),
-                "time" => $location->getTimestamp()
+                "lon" => $location->getLatitude()
             );
         }
+
+        return json_encode($routeJSON);
     }
 
 }

@@ -38,7 +38,7 @@ class TimeFrame {
     /**
      * Set localStartTime
      *
-     * @param date $localStartTime
+     * @param \DateTime $localStartTime
      * @return $this
      */
     public function setLocalStartTime($localStartTime)
@@ -50,7 +50,7 @@ class TimeFrame {
     /**
      * Get localStartTime
      *
-     * @return date $localStartTime
+     * @return \DateTime $localStartTime
      */
     public function getLocalStartTime()
     {
@@ -60,7 +60,7 @@ class TimeFrame {
     /**
      * Set localEndTime
      *
-     * @param date $localEndTime
+     * @param \DateTime $localEndTime
      * @return $this
      */
     public function setLocalEndTime($localEndTime)
@@ -72,7 +72,7 @@ class TimeFrame {
     /**
      * Get localEndTime
      *
-     * @return date $localEndTime
+     * @return \DateTime $localEndTime
      */
     public function getLocalEndTime()
     {

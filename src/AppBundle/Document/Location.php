@@ -169,7 +169,7 @@ class Location {
     /**
      * Set date
      *
-     * @param date $date
+     * @param \DateTime $date
      * @return $this
      */
     public function setDate($date)
@@ -181,7 +181,7 @@ class Location {
     /**
      * Get date
      *
-     * @return date $date
+     * @return \DateTime $date
      */
     public function getDate()
     {
