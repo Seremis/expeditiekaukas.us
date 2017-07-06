@@ -80,13 +80,15 @@ class LocationHandler {
             $timezoneName = $date->getTimezone()->getName();
         } else {
             $timestamp = 0;
-            $timezone = 0;
+            $timezoneOffset = 0;
+            $timezoneName = "";
         }
 
         $route = array(
             'personName' => $personName,
             'lastUpdateTime' => $timestamp,
-            'lastUpdateTimezone' => $timezone,
+            'lastUpdateTimezoneOffset' => $timezoneOffset,
+            'lastUpdateTimezoneName' => $timezoneName,
             'route' => $routeJSON
         );
 
