@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Data\LocationHandler;
 use AppBundle\Document\Location;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -71,7 +72,7 @@ class DefaultController extends Controller
      *      ]
      *  }
      */
-    public function locationActionPost(Request $request) {
+    public function locationActionPost(Request $request, LoggerInterface $logger) {
         $jsonString = $request->getContent();
 
         $json = json_decode($jsonString, $assoc = true);
@@ -83,7 +84,7 @@ class DefaultController extends Controller
             if(!empty($locations)) {
                 $mongoManager = $this->get('doctrine_mongodb')->getManager();
 
-                LocationHandler::persistLocations($mongoManager, $name, $locations);
+                LocationHandler::persistLocations($mongoManager, $name, $locations, $logger);
             }
 
             $response = new Response();

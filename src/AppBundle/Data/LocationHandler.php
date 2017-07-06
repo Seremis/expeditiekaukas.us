@@ -6,6 +6,7 @@ namespace AppBundle\Data;
 use AppBundle\Document\Location;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Psr\Log\LoggerInterface;
 
 class LocationHandler {
 
@@ -26,7 +27,7 @@ class LocationHandler {
      *      ]
      *  }
      */
-    static function persistLocations(ObjectManager $mongoManager, $personName, $locationsJSON): array {
+    static function persistLocations(ObjectManager $mongoManager, $personName, $locationsJSON, LoggerInterface $logger): array {
         $locationsDoc = array();
 
         foreach($locationsJSON as $json) {
@@ -41,6 +42,10 @@ class LocationHandler {
             $date = new \DateTime();
             $date->setTimestamp($json['time']);
             $timezone = new \DateTimeZone($json['timezone']);
+
+            $logger->info("timezone in JSON: " . $json['timezone']);
+            $logger->info("timezone in DateTimeZone: " . $timezone->getName() . ' ' . $timezone->getLocation() . ' ' . $timezone->getOffset($date));
+
             $date->setTimezone($timezone);
 
             $location->setDate($date);
