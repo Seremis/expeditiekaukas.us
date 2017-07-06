@@ -284,4 +284,26 @@ class Place {
     {
         return $this->date;
     }
+
+    /**
+     * Set timezone
+     *
+     * @param string $timezone
+     * @return $this
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+        return $this;
+    }
+
+    /**
+     * Get timezone
+     *
+     * @return string $timezone
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
 }
