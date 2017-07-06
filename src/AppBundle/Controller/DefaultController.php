@@ -84,7 +84,7 @@ class DefaultController extends Controller
             if(!empty($locations)) {
                 $mongoManager = $this->get('doctrine_mongodb')->getManager();
 
-                LocationHandler::persistLocations($mongoManager, $name, $locations, $this->get('logger'));
+                LocationHandler::persistLocations($mongoManager, $name, $locations);
             }
 
             $response = new Response();
