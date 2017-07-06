@@ -76,7 +76,8 @@ class LocationHandler {
         if($lastLocation != null) {
             $date = $lastLocation->getDate();
             $timestamp = $date->getTimestamp();
-            $timezone = $date->getTimezone();
+            $timezoneOffset = $date->getTimezone()->getOffset($date);
+            $timezoneName = $date->getTimezone()->getName();
         } else {
             $timestamp = 0;
             $timezone = 0;
