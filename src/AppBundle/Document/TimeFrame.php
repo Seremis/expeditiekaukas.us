@@ -21,9 +21,19 @@ class TimeFrame {
     protected $localStartTime;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $timezoneStart;
+
+    /**
      * @MongoDB\Field(type="date")
      */
     protected $localEndTime;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $timezoneEnd;
 
     /**
      * Get id

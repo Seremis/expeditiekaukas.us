@@ -46,6 +46,11 @@ class Place {
     protected $date;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $timezone;
+
+    /**
      * @MongoDB\Field(type="int")
      */
     protected $accuracy;
