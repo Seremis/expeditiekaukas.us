@@ -63,19 +63,24 @@ class LocationHandler {
             ->getQuery()->execute();
 
         $routeJSON = array();
+        $lastLocation = null;
 
         foreach($locations as $location) {
             $routeJSON[] = array(
                 "lat" => $location->getLatitude(),
                 "lon" => $location->getLatitude()
             );
+            $lastLocation = $location;
         }
 
-        $lastLocation = array_values(array_slice($locations, -1))[0];;
-
-        $date = $lastLocation->getDate();
-        $timestamp = $date->getTimestamp();
-        $timezone = $date->getTimezone();
+        if($lastLocation != null) {
+            $date = $lastLocation->getDate();
+            $timestamp = $date->getTimestamp();
+            $timezone = $date->getTimezone();
+        } else {
+            $timestamp = 0;
+            $timezone = 0;
+        }
 
         $route = array(
             'personName' => $personName,
