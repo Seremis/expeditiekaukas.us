@@ -72,7 +72,7 @@ class DefaultController extends Controller
      *      ]
      *  }
      */
-    public function locationActionPost(Request $request, LoggerInterface $logger) {
+    public function locationActionPost(Request $request) {
         $jsonString = $request->getContent();
 
         $json = json_decode($jsonString, $assoc = true);
@@ -84,7 +84,7 @@ class DefaultController extends Controller
             if(!empty($locations)) {
                 $mongoManager = $this->get('doctrine_mongodb')->getManager();
 
-                LocationHandler::persistLocations($mongoManager, $name, $locations, $logger);
+                LocationHandler::persistLocations($mongoManager, $name, $locations, $this->get('logger'));
             }
 
             $response = new Response();
