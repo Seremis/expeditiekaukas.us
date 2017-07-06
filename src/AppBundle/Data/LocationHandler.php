@@ -44,7 +44,7 @@ class LocationHandler {
             $timezone = new \DateTimeZone($json['timezone']);
 
             $logger->info("timezone in JSON: " . $json['timezone']);
-            $logger->info("timezone in DateTimeZone: " . $timezone->getName() . ' ' . $timezone->getLocation() . ' ' . $timezone->getOffset($date));
+            $logger->info("timezone in DateTimeZone: " . $timezone->getName() . ' ' . $timezone->getOffset($date));
 
             $date->setTimezone($timezone);
 
