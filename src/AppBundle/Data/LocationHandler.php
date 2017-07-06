@@ -71,7 +71,7 @@ class LocationHandler {
             );
         }
 
-        $lastLocation = end($locations);
+        $lastLocation = array_values(array_slice($locations, -1))[0];;
 
         $date = $lastLocation->getDate();
         $timestamp = $date->getTimestamp();
