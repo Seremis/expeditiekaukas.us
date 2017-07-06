@@ -71,8 +71,16 @@ class LocationHandler {
             );
         }
 
+        $lastLocation = end($locations);
+
+        $date = $lastLocation->getDate();
+        $timestamp = $date->getTimestamp();
+        $timezone = $date->getTimezone();
+
         $route = array(
             'personName' => $personName,
+            'lastUpdateTime' => $timestamp,
+            'lastUpdateTimezone' => $timezone,
             'route' => $routeJSON
         );
 
