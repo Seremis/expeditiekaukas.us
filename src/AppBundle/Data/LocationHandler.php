@@ -41,7 +41,7 @@ class LocationHandler {
 
             $date = new \DateTime();
             $date->setTimestamp($json['time']);
-            $date->setTimezone(new \DateTimeZone(+0000));
+            $date->setTimezone(new \DateTimeZone("UTC"));
             $location->setDate($date);
             $location->setTimezone($json['timezone']);
 
