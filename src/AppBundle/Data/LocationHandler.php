@@ -5,8 +5,8 @@ namespace AppBundle\Data;
 
 use AppBundle\Document\Location;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Psr\Log\LoggerInterface;
+
 
 class LocationHandler {
 
@@ -41,14 +41,8 @@ class LocationHandler {
 
             $date = new \DateTime();
             $date->setTimestamp($json['time']);
-            $timezone = new \DateTimeZone($json['timezone']);
-
-            $logger->info("timezone in JSON: " . $json['timezone']);
-            $logger->info("timezone in DateTimeZone: " . $timezone->getName() . ' ' . $timezone->getOffset($date));
-
-            $date->setTimezone($timezone);
-
             $location->setDate($date);
+            $location->setTimezone($json['timezone']);
 
             $locationsDoc[] = $location;
             $mongoManager->persist($location);
@@ -81,8 +75,11 @@ class LocationHandler {
         if($lastLocation != null) {
             $date = $lastLocation->getDate();
             $timestamp = $date->getTimestamp();
-            $timezoneOffset = $date->getTimezone()->getOffset($date);
-            $timezoneName = $date->getTimezone()->getName();
+
+            $timezone = new \DateTimeZone($lastLocation->getTimezone());
+
+            $timezoneOffset = $timezone->getOffset($date);
+            $timezoneName = $timezone->getName();
         } else {
             $timestamp = 0;
             $timezoneOffset = 0;
