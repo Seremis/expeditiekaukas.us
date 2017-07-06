@@ -46,7 +46,7 @@ class Location {
     protected $timezone;
 
     /**
-     * @MongoDB\Field(type="int")
+     * @MongoDB\Field(type="float")
      */
     protected $accuracy;
 
