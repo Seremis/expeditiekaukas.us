@@ -46,6 +46,11 @@ class Place {
     protected $date;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $timezone;
+
+    /**
      * @MongoDB\Field(type="int")
      */
     protected $accuracy;
@@ -256,5 +261,27 @@ class Place {
     public function getTimeframes()
     {
         return $this->timeframes;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return $this
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime $date
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

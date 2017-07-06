@@ -41,6 +41,11 @@ class Location {
     protected $date;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $timezone;
+
+    /**
      * @MongoDB\Field(type="int")
      */
     protected $accuracy;
@@ -164,5 +169,27 @@ class Location {
     public function getAccuracy()
     {
         return $this->accuracy;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return $this
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime $date
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

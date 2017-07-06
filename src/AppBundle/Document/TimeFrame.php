@@ -88,4 +88,48 @@ class TimeFrame {
     {
         return $this->localEndTime;
     }
+
+    /**
+     * Set timezoneStart
+     *
+     * @param string $timezoneStart
+     * @return $this
+     */
+    public function setTimezoneStart($timezoneStart)
+    {
+        $this->timezoneStart = $timezoneStart;
+        return $this;
+    }
+
+    /**
+     * Get timezoneStart
+     *
+     * @return string $timezoneStart
+     */
+    public function getTimezoneStart()
+    {
+        return $this->timezoneStart;
+    }
+
+    /**
+     * Set timezoneEnd
+     *
+     * @param string $timezoneEnd
+     * @return $this
+     */
+    public function setTimezoneEnd($timezoneEnd)
+    {
+        $this->timezoneEnd = $timezoneEnd;
+        return $this;
+    }
+
+    /**
+     * Get timezoneEnd
+     *
+     * @return string $timezoneEnd
+     */
+    public function getTimezoneEnd()
+    {
+        return $this->timezoneEnd;
+    }
 }

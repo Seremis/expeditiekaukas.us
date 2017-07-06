@@ -21,9 +21,19 @@ class TimeFrame {
     protected $localStartTime;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $timezoneStart;
+
+    /**
      * @MongoDB\Field(type="date")
      */
     protected $localEndTime;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $timezoneEnd;
 
     /**
      * Get id
@@ -33,5 +43,49 @@ class TimeFrame {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set localStartTime
+     *
+     * @param \DateTime $localStartTime
+     * @return $this
+     */
+    public function setLocalStartTime($localStartTime)
+    {
+        $this->localStartTime = $localStartTime;
+        return $this;
+    }
+
+    /**
+     * Get localStartTime
+     *
+     * @return \DateTime $localStartTime
+     */
+    public function getLocalStartTime()
+    {
+        return $this->localStartTime;
+    }
+
+    /**
+     * Set localEndTime
+     *
+     * @param \DateTime $localEndTime
+     * @return $this
+     */
+    public function setLocalEndTime($localEndTime)
+    {
+        $this->localEndTime = $localEndTime;
+        return $this;
+    }
+
+    /**
+     * Get localEndTime
+     *
+     * @return \DateTime $localEndTime
+     */
+    public function getLocalEndTime()
+    {
+        return $this->localEndTime;
     }
 }
