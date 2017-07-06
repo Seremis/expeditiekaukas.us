@@ -31,7 +31,7 @@ class Location {
     protected $longitude;
 
     /**
-     * @MongoDB\Field(type="int")
+     * @MongoDB\Field(type="float")
      */
     protected $altitude;
 
