@@ -18,4 +18,40 @@ function initMap() {
 
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
+
+    loadRoutes(map);
+}
+
+function loadRoutes(map) {
+    console.log("Loading people...")
+    getPeople(
+        successCallback = function(data) {
+            console.log("Loading people succeeded!")
+
+            $.each( data, function( key, val ) {
+                console.log(key + " " + val);
+            });
+        },
+        errorCallback = function (data) {
+            alert({{ errorLoadingTryAgain }})
+        }
+    );
+}
+
+
+function getPeople(successCallback, errorCallback) {
+    $.ajax({
+        url: "https://expeditiekaukas.us/api/person",
+        success: successCallback,
+        error: errorCallback
+    });
+}
+
+function getRoute(personName, successCallback, errorCallback) {
+    $.ajax({
+        url: "https://expeditiekaukas.us/api/route/" + personName,
+        dataType: "json",
+        success: successCallback,
+        error: errorCallback
+    });
 }

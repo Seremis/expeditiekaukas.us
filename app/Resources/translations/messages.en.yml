@@ -1,3 +1,4 @@
 name: Expedition Caucasus
 flag.name: gb
 mapslayout.name: Muted Blue
+map.loading.error: Error loading map, please try refreshing the page.
