@@ -28,7 +28,7 @@ function loadRoutes(map) {
         successCallback = function(data) {
             console.log("Loading people succeeded!")
 
-            $.each( data['people'], function( key, val ) {
+            $.each( data.people, function( key, val ) {
                 console.log(key + " " + val);
             });
         },
