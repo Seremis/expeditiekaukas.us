@@ -67,7 +67,7 @@ class LocationHandler {
         foreach($locations as $location) {
             $routeJSON[] = array(
                 "lat" => $location->getLatitude(),
-                "lon" => $location->getLatitude()
+                "lon" => $location->getLongitude()
             );
             $lastLocation = $location;
         }

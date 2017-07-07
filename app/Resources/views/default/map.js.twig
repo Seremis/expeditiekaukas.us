@@ -28,7 +28,20 @@ function loadRoutes(map) {
         successCallback = function(data) {
             console.log("Loading people succeeded!")
 
-            console.log(data.people)
+            $.each( data.people, function(key, val) {
+                console.log("Requesting route for " + val);
+
+                getRoute(val,
+                    successCallback = function(data) {
+                        console.log("Loading route for " + data.personName + " succeeded!");
+
+                        drawRouteOnMap(map, data);
+                    },
+                    errorCallback = function(data) {
+                        alert("{{ errorLoadingTryAgain }}")
+                    }
+                );
+            });
         },
         errorCallback = function (data) {
             alert("{{ errorLoadingTryAgain }}")
@@ -38,7 +51,7 @@ function loadRoutes(map) {
 
 
 function getPeople(successCallback, errorCallback) {
-    $.ajax({
+    $.getJSON({
         url: "https://expeditiekaukas.us/api/person",
         success: successCallback,
         error: errorCallback
@@ -46,10 +59,34 @@ function getPeople(successCallback, errorCallback) {
 }
 
 function getRoute(personName, successCallback, errorCallback) {
-    $.ajax({
+    $.getJSON({
         url: "https://expeditiekaukas.us/api/route/" + personName,
-        dataType: "json",
         success: successCallback,
         error: errorCallback
     });
+}
+
+function drawRouteOnMap(map, json) {
+    var bounds = new google.maps.LatLngBounds();
+
+    var personName = json.personName;
+    var route = json.route;
+
+    console.log(personName + " route length: " + route.length);
+
+    var polyline = new google.maps.Polyline({
+        strokeColor: '#9b0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+    });
+
+    for(var i = 0; i < route.length; i++) {
+        var location = new google.maps.LatLng(route[i].lat, route[i].lon)
+
+        polyline.getPath().push(location);
+        bounds.extend(location)
+    }
+
+    polyline.setMap(map);
+    map.fitBounds(bounds);
 }
