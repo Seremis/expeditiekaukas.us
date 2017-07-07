@@ -36,7 +36,7 @@ class Place {
     protected $longitude;
 
     /**
-     * @MongoDB\Field(type="int")
+     * @MongoDB\Field(type="float")
      */
     protected $altitude;
 
@@ -51,7 +51,7 @@ class Place {
     protected $timezone;
 
     /**
-     * @MongoDB\Field(type="int")
+     * @MongoDB\Field(type="float")
      */
     protected $accuracy;
 
