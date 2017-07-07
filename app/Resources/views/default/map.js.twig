@@ -19,10 +19,16 @@ function initMap() {
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
 
-    loadRoutes(map);
+
+    var legend = document.getElementById('legend');
+
+    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+
+
+    loadRoutes(map, legend);
 }
 
-function loadRoutes(map) {
+function loadRoutes(map, legend) {
     console.log("Loading people...")
     getPeople(
         successCallback = function(data) {
@@ -35,7 +41,7 @@ function loadRoutes(map) {
                     successCallback = function(data) {
                         console.log("Loading route for " + data.personName + " succeeded!");
 
-                        drawRouteOnMap(map, data);
+                        drawRouteOnMap(map, legend, data);
                     },
                     errorCallback = function(data) {
                         alert("{{ errorLoadingTryAgain }}")
@@ -66,11 +72,19 @@ function getRoute(personName, successCallback, errorCallback) {
     });
 }
 
-function drawRouteOnMap(map, json) {
+function drawRouteOnMap(map, legend, json) {
     var bounds = new google.maps.LatLngBounds();
 
     var personName = json.personName;
+    var lastSeenStamp = json.lastUpdateTime;
+    var lastSeenZoneOffset = json.lastUpdateTimezoneOffset;
     var route = json.route;
+
+    var dateLastSeen = new Date(lastSeenStamp + lastSeenZoneOffset)
+
+    var div = document.createElement('div');
+    div.innerHTML = personName + ' ' + dateLastSeen.toString();
+    legend.appendChild(div);
 
     console.log(personName + " route length: " + route.length);
 
