@@ -102,6 +102,10 @@ class DefaultController extends Controller
                 $mongoManager = $this->get('doctrine_mongodb')->getManager();
 
                 LocationHandler::pingLocation($mongoManager, $name);
+
+                $response = new Response();
+
+                $response->setStatusCode(200);
             }
         }
 
