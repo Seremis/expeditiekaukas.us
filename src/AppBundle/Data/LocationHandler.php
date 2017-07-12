@@ -57,9 +57,8 @@ class LocationHandler {
      * Creates a new Location object in the database that is a copy of the last, except for the time.
      * @param ObjectManager $mongoManager
      * @param $personName
-     * @return array
      */
-    static function pingLocation(ObjectManager $mongoManager, $personName): array {
+    static function pingLocation(ObjectManager $mongoManager, $personName) {
         $lastLocation = LocationHandler::getLastLocationForPerson($mongoManager, $personName);
 
         $date = new \DateTime();
