@@ -82,25 +82,27 @@ class DefaultController extends Controller
         $json = json_decode($jsonString, $assoc = true);
 
         if($json != null && $json['apiKey'] == "oordeel maar niet waar") {
-            $name = $json['name'];
-            $locations = $json['locations'];
+            if(isset($json['locations'])) {
+                $name = $json['name'];
+                $locations = $json['locations'];
 
-            if(!empty($locations)) {
+                if (!empty($locations)) {
+                    $mongoManager = $this->get('doctrine_mongodb')->getManager();
+
+                    LocationHandler::persistLocations($mongoManager, $name, $locations);
+                }
+
+                $response = new Response();
+
+                $response->setStatusCode(200);
+                return $response;
+            } else {
+                $name = $json['name'];
+
                 $mongoManager = $this->get('doctrine_mongodb')->getManager();
 
-                LocationHandler::persistLocations($mongoManager, $name, $locations);
+                LocationHandler::pingLocation($mongoManager, $name);
             }
-
-            $response = new Response();
-
-            $response->setStatusCode(200);
-            return $response;
-        } else {
-            $name = $json['name'];
-
-            $mongoManager = $this->get('doctrine_mongodb')->getManager();
-
-            LocationHandler::pingLocation($mongoManager, $name);
         }
 
         $response = new Response();
