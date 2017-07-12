@@ -59,7 +59,7 @@ class LocationHandler {
      * @param $personName
      */
     static function pingLocation(ObjectManager $mongoManager, $personName) {
-        $lastLocation = LocationHandler::getLastLocationForPerson($mongoManager, $personName);
+        $lastLocation = LocationHandler::getLastLocationForPerson($mongoManager, $personName)->copy();
 
         $date = new \DateTime();
         $lastLocation->setDate($date);

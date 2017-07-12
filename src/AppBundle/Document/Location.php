@@ -214,4 +214,17 @@ class Location {
     {
         return $this->timezone;
     }
+
+    public function copy(): Location {
+        $location = new Location();
+        $location->setLatitude($this->getLatitude());
+        $location->setLongitude($this->getLongitude());
+        $location->setAltitude($this->getAltitude());
+        $location->setAccuracy($this->getAccuracy());
+        $location->setPersonName($this->getPersonName());
+        $location->setDate($this->getDate());
+        $location->setTimezone($this->getTimezone());
+
+        return $location;
+    }
 }
