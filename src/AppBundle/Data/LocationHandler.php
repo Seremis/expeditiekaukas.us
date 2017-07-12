@@ -61,7 +61,8 @@ class LocationHandler {
     static function pingLocation(ObjectManager $mongoManager, $personName) {
         $lastLocation = LocationHandler::getLastLocationForPerson($mongoManager, $personName)->copy();
 
-        $date = new \DateTime(time() * 1000); //time in milliseconds
+        $date = new \DateTime(); //time in milliseconds
+        $date->setTimestamp(time() * 1000);
         $lastLocation->setDate($date);
 
         $mongoManager->persist($lastLocation);
