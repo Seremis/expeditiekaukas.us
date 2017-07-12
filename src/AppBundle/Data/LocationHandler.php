@@ -4,6 +4,7 @@ namespace AppBundle\Data;
 
 
 use AppBundle\Document\Location;
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 
 
@@ -50,6 +51,34 @@ class LocationHandler {
         $mongoManager->flush();
 
         return $locationsDoc;
+    }
+
+    /**
+     * Creates a new Location object in the database that is a copy of the last, except for the time.
+     * @param ObjectManager $mongoManager
+     * @param $personName
+     * @return array
+     */
+    static function pingLocation(ObjectManager $mongoManager, $personName): array {
+        $lastLocation = LocationHandler::getLastLocationForPerson($mongoManager, $personName);
+
+        $date = new \DateTime();
+        $lastLocation->setDate($date);
+
+        $mongoManager->persist($lastLocation);
+        $mongoManager->flush();
+    }
+
+    static function getLastLocationForPerson(ObjectManager $mongoManager, $personName): Location {
+        $queryBuilder = $mongoManager->createQueryBuilder("AppBundle:Location");
+
+        $locations = $queryBuilder
+            ->field('personName')->equals(ucwords($personName))
+            ->sort('date', 'desc')
+            ->limit(1)
+            ->getQuery()->execute();
+
+        return isset($locations[0]) ? $locations[0] : null;
     }
 
 

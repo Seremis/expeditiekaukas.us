@@ -95,6 +95,12 @@ class DefaultController extends Controller
 
             $response->setStatusCode(200);
             return $response;
+        } else {
+            $name = $json['name'];
+
+            $mongoManager = $this->get('doctrine_mongodb')->getManager();
+
+            LocationHandler::pingLocation($mongoManager, $name);
         }
 
         $response = new Response();
