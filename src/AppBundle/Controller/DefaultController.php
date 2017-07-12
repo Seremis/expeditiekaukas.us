@@ -106,6 +106,7 @@ class DefaultController extends Controller
                 $response = new Response();
 
                 $response->setStatusCode(200);
+                return $response;
             }
         }
 
