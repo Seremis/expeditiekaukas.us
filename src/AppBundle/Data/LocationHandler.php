@@ -78,7 +78,9 @@ class LocationHandler {
             ->limit(1)
             ->getQuery()->execute();
 
-        return isset($locations[0]) ? $locations[0] : null;
+        $location = $locations->getNext();
+
+        return isset($location) ? $location : null;
     }
 
 
