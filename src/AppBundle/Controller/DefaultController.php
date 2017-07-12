@@ -30,6 +30,7 @@ class DefaultController extends Controller
 
         $mapsLayoutName = $this->get('translator')->trans('mapslayout.name');
         $errorLoadingTryAgain = $this->get('translator')->trans('map.loading.error');
+        $lastseen = $this->get('translator')->trans('map.lastseen');
 
         $otherLocales = array();
         $otherLocaleFlags = array();
@@ -51,6 +52,7 @@ class DefaultController extends Controller
             'otherLocale2Flag' => $otherLocaleFlags[1],
             'mapslayoutName' => $mapsLayoutName,
             'errorLoadingTryAgain' => $errorLoadingTryAgain,
+            'lastseen' => $lastseen,
         ]);
     }
 

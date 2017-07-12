@@ -19,15 +19,19 @@ function initMap() {
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
 
+    var infowindow = new google.maps.InfoWindow();
 
-    loadRoutes(map);
+
+    loadRoutes(map, infowindow);
 }
 
-function loadRoutes(map) {
+function loadRoutes(map, infowindow) {
     console.log("Loading people...")
     getPeople(
         successCallback = function(data) {
             console.log("Loading people succeeded!")
+
+            var bounds = new google.maps.LatLngBounds();
 
             $.each( data.people, function(key, val) {
                 console.log("Requesting route for " + val);
@@ -36,15 +40,15 @@ function loadRoutes(map) {
                     successCallback = function(data) {
                         console.log("Loading route for " + data.personName + " succeeded!");
 
-                        drawRouteOnMap(map, data);
+                        drawRouteOnMap(map, bounds, infowindow, data);
                     },
-                    errorCallback = function(data) {
+                    errorCallback = function() {
                         alert("{{ errorLoadingTryAgain }}")
                     }
                 );
             });
         },
-        errorCallback = function (data) {
+        errorCallback = function () {
             alert("{{ errorLoadingTryAgain }}")
         }
     );
@@ -67,9 +71,7 @@ function getRoute(personName, successCallback, errorCallback) {
     });
 }
 
-function drawRouteOnMap(map, json) {
-    var bounds = new google.maps.LatLngBounds();
-
+function drawRouteOnMap(map, bounds, infowindow, json) {
     var personName = json.personName;
     var lastSeenStamp = json.lastUpdateTime;
     var lastSeenZoneOffset = json.lastUpdateTimezoneOffset;
@@ -78,16 +80,45 @@ function drawRouteOnMap(map, json) {
     console.log(personName + " route length: " + route.length);
 
     var polyline = new google.maps.Polyline({
-        strokeColor: '#9b0000',
+        strokeColor: getColor(),
         strokeOpacity: 1.0,
         strokeWeight: 3
     });
+
+    var lastLocation = null;
 
     for(var i = 0; i < route.length; i++) {
         var location = new google.maps.LatLng(route[i].lat, route[i].lon)
 
         polyline.getPath().push(location);
         bounds.extend(location)
+
+        lastLocation = location;
+    }
+
+    if(lastLocation != null) {
+        var marker = new google.maps.Marker({
+            position: lastLocation,
+            icon: {
+                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                scale: 5
+            },
+            draggable: false,
+            map: map
+        });
+
+        marker.addListener('click', function() {
+            var contentString =
+                '<div id="content">'+
+                '<h1>' + personName + '</h1>'+
+                '<div id="bodyContent">'+
+                '<p>{{ lastseen }}: ' + formatDate(new Date(lastSeenStamp)) + '</p>'+
+                '</div>'+
+                '</div>';
+
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+        });
     }
 
     polyline.setMap(map);
@@ -102,9 +133,21 @@ function formatDate(d) {
 
     return [    d.getDate().padLeft(),
                 (d.getMonth()+1).padLeft(),
-                d.getFullYear(),
+                d.getFullYear()
                 ].join('/') +' ' +
                 [d.getHours().padLeft(),
                 d.getMinutes().padLeft(),
                 d.getSeconds().padLeft()].join(':');
+}
+
+var colors = [
+    '#FFDC00',
+    '#2ECC40',
+    '#85144b',
+    '#ff0000',
+    '#3D9970'
+]
+
+function getColor() {
+    return colors.pop();
 }

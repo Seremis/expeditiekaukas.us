@@ -1,4 +1,5 @@
 name: Expeditie Kaukasus
 flag.name: nl
-mapslayout.name: Gedempt Blauw
+mapslayout.name: Blauw
 map.loading.error: Er is iets fout gegaan bij het laden van de pagina, probeer het later nog eens.
+map.lastseen: Laatste update

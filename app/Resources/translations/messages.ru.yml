@@ -1,4 +1,5 @@
 name: Экспедиция Кавказ
 flag.name: ru
-mapslayout.name: Приглушенный Синий
+mapslayout.name: Синий
 map.loading.error: Произошла ошибка.
+map.lastseen: Последний раз видели
