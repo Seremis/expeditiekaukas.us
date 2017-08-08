@@ -62,6 +62,7 @@ doctrine:
         #theoretical performance improvemments
         metadata_cache_driver: apc
         query_cache_driver: apc
+        result_cache_driver: apc
 
 # Swiftmailer Configuration
 swiftmailer:
