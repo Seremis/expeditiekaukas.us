@@ -8,14 +8,14 @@ use Symfony\Component\Debug\Debug;
 // for more information
 umask(0000);
 
-// This check prevents access to debug front controllers that are deployed by accident to production servers.
+// Thìis check prevents access to debug front controllers that are deployed by accident to production servers.
 // Feel free to remove this, extend it, or make something more sophisticated.
 if (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])                  //Kornoeljestraat, Holte
-    || !(in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1', '87.208.2.154', '84.84.124.195']) || PHP_SAPI === 'cli-server')
+    || !(in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1', '87.208.2.154', '84.84.124.195', '185.10.172.26']) || PHP_SAPI === 'cli-server')
 ) {
-    header('HTTP/1.0 403 Forbidden');
-    exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
+  //  header('HTTP/1.0 403 Forbidden');
+    //exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
 }
 
 /** @var \Composer\Autoload\ClassLoader $loader */
