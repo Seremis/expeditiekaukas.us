@@ -123,6 +123,8 @@ function drawRouteOnMap(map, bounds, infowindow, json) {
 
     polyline.setMap(map);
     map.fitBounds(bounds);
+
+    $('#mapLoadingText').hide();
 }
 
 function formatDate(d) {
