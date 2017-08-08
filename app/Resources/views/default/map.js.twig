@@ -38,7 +38,9 @@ function loadRoutes(map, infowindow) {
 
             var bounds = new google.maps.LatLngBounds();
 
-            var peopleList = data.people.slice();
+            var peopleList = data.people.slice(); //Copies array
+
+            console.log(typeof(peopleList));
 
             $.each( data.people, function(key, val) {
                 console.log("Requesting route for " + val);
