@@ -88,16 +88,6 @@ class LocationHandler {
     static function getRouteForPerson(ObjectManager $manager, $personName): string {
         $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
 
-        if($personName == 'Maurice') {
-            //$queryBuilder = $queryBuilder->skip(150000);
-        }
-
-//        $locations = $queryBuilder
-//            ->field('personName')->equals(ucwords($personName))
-//            ->sort('date', 'asc')
-//            ->getQuery()
-//            ->execute();
-
         $query = $queryBuilder
             ->field('personName')->equals(ucwords($personName))
             ->sort('date', 'asc')
@@ -118,17 +108,6 @@ class LocationHandler {
 
             $manager->detach($location);
         }
-
-//        $routeJSON = array();
-//        $lastLocation = null;
-//
-//        foreach($locations as $location) {
-//            $routeJSON[] = array(
-//                "lat" => $location->getLatitude(),
-//                "lon" => $location->getLongitude()
-//            );
-//            $lastLocation = $location;
-//        }
 
         if($lastLocation != null) {
             $date = $lastLocation->getDate();
