@@ -46,9 +46,10 @@ function loadRoutes(map, infowindow) {
                         alert("{{ errorLoadingTryAgain }}")
                     }
                 );
+            }).promise().done(function () {
+                console.log("Loading finished.")
+                $('#mapLoadingOverlay').hide();
             });
-
-            $('#mapLoadingOverlay').hide();
         },
         errorCallback = function () {
             alert("{{ errorLoadingTryAgain }}")
