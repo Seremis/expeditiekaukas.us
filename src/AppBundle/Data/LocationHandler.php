@@ -6,6 +6,7 @@ namespace AppBundle\Data;
 use AppBundle\Document\Location;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
 
 class LocationHandler {
@@ -27,7 +28,7 @@ class LocationHandler {
      *      ]
      *  }
      */
-    static function persistLocations(ObjectManager $mongoManager, $personName, $locationsJSON): array {
+    static function persistLocations(DocumentManager $mongoManager, $personName, $locationsJSON): array {
         $locationsDoc = array();
 
         foreach($locationsJSON as $json) {
@@ -55,10 +56,10 @@ class LocationHandler {
 
     /**
      * Creates a new Location object in the database that is a copy of the last, except for the time.
-     * @param ObjectManager $mongoManager
+     * @param DocumentManager $mongoManager
      * @param $personName
      */
-    static function pingLocation(ObjectManager $mongoManager, $personName) {
+    static function pingLocation(DocumentManager $mongoManager, $personName) {
         $lastLocation = LocationHandler::getLastLocationForPerson($mongoManager, $personName)->copy();
 
         $date = new \DateTime(); //time in milliseconds
@@ -69,7 +70,7 @@ class LocationHandler {
         $mongoManager->flush();
     }
 
-    static function getLastLocationForPerson(ObjectManager $mongoManager, $personName): Location {
+    static function getLastLocationForPerson(DocumentManager $mongoManager, $personName): Location {
         $queryBuilder = $mongoManager->createQueryBuilder("AppBundle:Location");
 
         $locations = $queryBuilder
@@ -85,16 +86,15 @@ class LocationHandler {
     }
 
 
-    static function getRouteForPerson(ObjectManager $manager, $personName): string {
+    static function getRouteForPerson(DocumentManager $manager, $personName): string {
         $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
 
         $query = $queryBuilder
             ->field('personName')->equals(ucwords($personName))
             ->sort('date', 'asc')
-            ->useResultCache(true)
             ->getQuery();
 
-        $iterableResult = $query->iterate();
+        $iterableResult = $query->getIterator();
 
         $routeJSON = array();
         $lastLocation = null;
@@ -135,7 +135,7 @@ class LocationHandler {
         return json_encode($route);
     }
 
-    static function getUniquePersons(ObjectManager $manager): string {
+    static function getUniquePersons(DocumentManager $manager): string {
         $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
 
         $persons = $queryBuilder
