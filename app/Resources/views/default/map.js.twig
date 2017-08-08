@@ -139,7 +139,7 @@ function hideLoadingIfDone(peopleList, person) {
 
     console.log("Deleting " + person + " from peopleList, left are: ");
 
-    $.each( data.people, function(key, val) {
+    $.each(peopleList, function(key, val) {
         console.log("    [" + key + "] = " + val)
     });
 
