@@ -1,5 +1,6 @@
 name: Expedition Caucasus
 flag.name: gb
 mapslayout.name: Blue
+map.loading: Loading...
 map.loading.error: Error loading map, please try refreshing the page.
 map.lastseen: Last update
