@@ -116,7 +116,7 @@ class LocationHandler {
             );
             $lastLocation = $location;
 
-            $queryBuilder->detach($location);
+            $manager->detach($location);
         }
 
 //        $routeJSON = array();
