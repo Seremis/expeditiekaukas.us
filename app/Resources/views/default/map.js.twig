@@ -27,11 +27,18 @@ function initMap() {
 
 function loadRoutes(map, infowindow) {
     console.log("Loading people...")
+
+    errorAlert = function () {
+        alert("{{ errorLoadingTryAgain }}")
+    };
+
     getPeople(
         successCallback = function(data) {
             console.log("Loading people succeeded!")
 
             var bounds = new google.maps.LatLngBounds();
+
+            var peopleList = data.people.copy();
 
             $.each( data.people, function(key, val) {
                 console.log("Requesting route for " + val);
@@ -41,19 +48,14 @@ function loadRoutes(map, infowindow) {
                         console.log("Loading route for " + data.personName + " succeeded!");
 
                         drawRouteOnMap(map, bounds, infowindow, data);
+                        hideLoadingIfDone(peopleList, data.personName);
                     },
-                    errorCallback = function() {
-                        alert("{{ errorLoadingTryAgain }}")
-                    }
+                    errorCallback = errorAlert
                 );
-            }).done(function () {
-                console.log("Loading finished.")
-                $('#mapLoadingOverlay').hide();
             });
+
         },
-        errorCallback = function () {
-            alert("{{ errorLoadingTryAgain }}")
-        }
+        errorCallback = errorAlert
     );
 }
 
@@ -126,6 +128,15 @@ function drawRouteOnMap(map, bounds, infowindow, json) {
 
     polyline.setMap(map);
     map.fitBounds(bounds);
+}
+
+function hideLoadingIfDone(peopleList, person) {
+    peopleList.remove(person);
+
+    if(peopleList.length == 0) {
+        console.log("Loading finished.")
+        $('#mapLoadingOverlay').hide();
+    }
 }
 
 function formatDate(d) {
