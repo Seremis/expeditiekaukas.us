@@ -96,7 +96,6 @@ class LocationHandler {
             ->field('personName')->equals(ucwords($personName))
             ->sort('date', 'asc')
             ->getQuery()
-            ->useResultCache(true)
             ->execute();
 
         $routeJSON = array();
