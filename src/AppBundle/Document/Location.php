@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping\Cache;
 
 /**
  * @MongoDB\Document
- * @Cache(expires="+1 minutes", public=true)
  */
 class Location {
 
