@@ -47,6 +47,8 @@ function loadRoutes(map, infowindow) {
                     }
                 );
             });
+
+            $('#mapLoadingOverlay').hide();
         },
         errorCallback = function () {
             alert("{{ errorLoadingTryAgain }}")
@@ -123,8 +125,6 @@ function drawRouteOnMap(map, bounds, infowindow, json) {
 
     polyline.setMap(map);
     map.fitBounds(bounds);
-
-    $('#mapLoadingOverlay').hide();
 }
 
 function formatDate(d) {
