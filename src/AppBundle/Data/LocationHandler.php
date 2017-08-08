@@ -92,22 +92,45 @@ class LocationHandler {
             //$queryBuilder = $queryBuilder->skip(150000);
         }
 
-        $locations = $queryBuilder
+//        $locations = $queryBuilder
+//            ->field('personName')->equals(ucwords($personName))
+//            ->sort('date', 'asc')
+//            ->getQuery()
+//            ->execute();
+
+        $query = $queryBuilder
             ->field('personName')->equals(ucwords($personName))
             ->sort('date', 'asc')
-            ->getQuery()
-            ->execute();
+            ->getQuery();
+
+        $iterableResult = $query->iterate();
 
         $routeJSON = array();
         $lastLocation = null;
 
-        foreach($locations as $location) {
+        foreach ($iterableResult as $row) {
+
+            $location = $row[0];
+
             $routeJSON[] = array(
                 "lat" => $location->getLatitude(),
                 "lon" => $location->getLongitude()
             );
             $lastLocation = $location;
+
+            $queryBuilder->detach($row[0]);
         }
+
+//        $routeJSON = array();
+//        $lastLocation = null;
+//
+//        foreach($locations as $location) {
+//            $routeJSON[] = array(
+//                "lat" => $location->getLatitude(),
+//                "lon" => $location->getLongitude()
+//            );
+//            $lastLocation = $location;
+//        }
 
         if($lastLocation != null) {
             $date = $lastLocation->getDate();
