@@ -137,6 +137,12 @@ function hideLoadingIfDone(peopleList, person) {
 
     delete peopleList[index];
 
+    console.log("Deleting " + person + " from peopleList, left are: ");
+
+    $.each( data.people, function(key, val) {
+        console.log("    [" + key + "] = " + val)
+    });
+
     if(peopleList.length == 0) {
         console.log("Loading finished.")
         $('#mapLoadingOverlay').hide();
