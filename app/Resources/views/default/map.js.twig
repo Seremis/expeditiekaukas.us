@@ -142,7 +142,7 @@ function drawRouteOnMap(map, bounds, infowindow, json) {
 function hideLoadingIfDone(peopleList, person) {
     var index = peopleList.indexOf(person);
 
-    peopleList.remove(person);
+    peopleList.remove(index);
 
     console.log("Deleting " + person + " from peopleList, left are: ");
 
