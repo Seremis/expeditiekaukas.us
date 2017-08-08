@@ -93,6 +93,8 @@ class LocationHandler {
             ->sort('date', 'asc')
             ->getQuery();
 
+        $query->useResultCache(true, 60, $personName . '_route_id');
+
         $iterableResult = $query->iterate();
 
         $routeJSON = array();
