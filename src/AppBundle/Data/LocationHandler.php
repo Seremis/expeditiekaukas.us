@@ -91,9 +91,8 @@ class LocationHandler {
         $query = $queryBuilder
             ->field('personName')->equals(ucwords($personName))
             ->sort('date', 'asc')
+            ->useResultCache(true)
             ->getQuery();
-
-        //$query->useResultCache(true);
 
         $iterableResult = $query->iterate();
 
