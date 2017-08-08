@@ -3,10 +3,12 @@ namespace AppBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Id;
+use Doctrine\ORM\Mapping\Cache;
 
 
 /**
  * @MongoDB\Document
+ * @Cache(expires="+1 minutes", public=true)
  */
 class Location {
 
