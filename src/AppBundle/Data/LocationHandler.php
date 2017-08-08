@@ -87,10 +87,11 @@ class LocationHandler {
     static function getRouteForPerson(ObjectManager $manager, $personName): string {
         $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
 
-//        if($personName == 'Maurice') {
-//            $queryBuilder = $queryBuilder->skip(150000);
-//        }
+        if($personName == 'Maurice') {
+            $queryBuilder = $queryBuilder->skip(150000);
+        }
         $locations = $queryBuilder
+            ->select( 'latitude, longitude, date, timezone' )
             ->field('personName')->equals(ucwords($personName))
             ->sort('date', 'asc')
             ->getQuery()->execute();
