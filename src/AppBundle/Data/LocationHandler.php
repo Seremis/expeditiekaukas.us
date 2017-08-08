@@ -77,8 +77,6 @@ class LocationHandler {
             ->sort('date', 'desc')
             ->limit(1)
             ->getQuery()
-            ->useQueryCache(true)
-            ->useResultCache(true)
             ->execute();
 
         $location = $locations->getNext();
@@ -91,13 +89,16 @@ class LocationHandler {
         $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
 
         if($personName == 'Maurice') {
-            $queryBuilder = $queryBuilder->skip(150000);
+            //$queryBuilder = $queryBuilder->skip(150000);
         }
 
         $locations = $queryBuilder
             ->field('personName')->equals(ucwords($personName))
             ->sort('date', 'asc')
-            ->getQuery()->execute();
+            ->getQuery()
+            ->useQueryCache(true)
+            ->useResultCache(true)
+            ->execute();
 
         $routeJSON = array();
         $lastLocation = null;
