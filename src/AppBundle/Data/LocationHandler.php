@@ -108,9 +108,7 @@ class LocationHandler {
         $routeJSON = array();
         $lastLocation = null;
 
-        foreach ($iterableResult as $row) {
-
-            $location = $row[0];
+        foreach ($iterableResult as $location) {
 
             $routeJSON[] = array(
                 "lat" => $location->getLatitude(),
@@ -118,7 +116,7 @@ class LocationHandler {
             );
             $lastLocation = $location;
 
-            $queryBuilder->detach($row[0]);
+            $queryBuilder->detach($location);
         }
 
 //        $routeJSON = array();
