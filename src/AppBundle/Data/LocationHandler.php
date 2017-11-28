@@ -157,4 +157,56 @@ class LocationHandler {
         return json_encode($json);
     }
 
+    static function getFullRouteForPerson(DocumentManager $manager, $personName): string {
+        $queryBuilder = $manager->createQueryBuilder("AppBundle:Location");
+
+        $query = $queryBuilder
+            ->field('personName')->equals(ucwords($personName))
+            ->sort('date', 'asc')
+            ->getQuery();
+
+        $iterableResult = $query->getIterator();
+
+        $routeJSON = array();
+        $lastLocation = null;
+
+        foreach ($iterableResult as $location) {
+            $routeJSON[] = array(
+                "lat" => $location->getLatitude(),
+                "lon" => $location->getLongitude(),
+                "alt" => $location->getAltitude(),
+                "acc" => $location->getAccuracy(),
+                "person" => $location->getPersonName(),
+                "stamp" => $location->getDate()->getTimestamp(),
+                "timezone" => $location->getTimeZone()
+            );
+            $lastLocation = $location;
+
+            $manager->detach($location);
+        }
+
+        if($lastLocation != null) {
+            $date = $lastLocation->getDate();
+            $timestamp = $date->getTimestamp();
+
+            $timezone = new \DateTimeZone($lastLocation->getTimezone());
+
+            $timezoneOffset = $timezone->getOffset($date);
+            $timezoneName = $timezone->getName();
+        } else {
+            $timestamp = 0;
+            $timezoneOffset = 0;
+            $timezoneName = "";
+        }
+
+        $route = array(
+            'personName' => $personName,
+            'lastUpdateTime' => $timestamp,
+            'lastUpdateTimezoneOffset' => $timezoneOffset,
+            'lastUpdateTimezoneName' => $timezoneName,
+            'route' => $routeJSON
+        );
+
+        return json_encode($route);
+    }
 }
