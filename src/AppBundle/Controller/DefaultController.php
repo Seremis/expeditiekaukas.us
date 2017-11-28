@@ -182,7 +182,7 @@ class DefaultController extends Controller
 
     /**
      * Trailing slash personActionGet
-     * @Route("/api/route/{person}/dump", name="routeDumpGet")
+     * @Route("/api/route/{name}/dump", name="routeDumpGet")
      * @Method("GET")
      */
     public function personActionGetDump($name) {
