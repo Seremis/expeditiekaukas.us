@@ -179,4 +179,23 @@ class DefaultController extends Controller
     public function personActionGetSlash() {
         return $this->personActionGet();
     }
+
+    /**
+     * Trailing slash personActionGet
+     * @Route("/api/route/{person}/dump", name="routeDumpGet")
+     * @Method("GET")
+     */
+    public function personActionGetDump($name) {
+        $response = new Response();
+
+        $manager = $this->get('doctrine_mongodb')->getManager();
+
+        $json = LocationHandler::getFullRouteForPerson($manager, $name);
+
+        $response->setContent($json);
+
+        $response->setStatusCode(200);
+
+        return $response;
+    }
 }
